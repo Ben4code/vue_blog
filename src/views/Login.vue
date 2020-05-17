@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { mapGetters ,mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: "Login",
@@ -51,7 +51,11 @@ export default {
     }
   },
   watch: {
+    getAuthErrors(){
+      Object.values(this.getAuthErrors).length > 0 ? this.$noty.error("Oppss something went wrong.") : null;
+    },
     isUserAuth(){
+      this.isUserAuth ? this.$noty.success("Logged in successfully") : null;
       this.$router.push('/');
     }
   }

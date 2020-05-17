@@ -59,7 +59,11 @@ export default {
     }
   },
   watch: {
+    getAuthErrors(){
+      Object.values(this.getAuthErrors).length > 0 ? this.$noty.error("Oppss something went wrong.") : null;
+    },
     isUserAuth(){
+      this.isUserAuth ? this.$noty.success("Registered in successfully") : null;
       this.$router.push('/');
     }
   }

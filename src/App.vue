@@ -25,4 +25,8 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+.noty_body{
+  color: #fff;
+}
 </style>

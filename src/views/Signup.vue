@@ -7,12 +7,21 @@
           <form @submit.prevent="submitForm" class="form">
             <div class="form-group">
               <input type="text" placeholder="Enter name" v-model="name" class="form-control">
+              <div class="errors" v-if="getAuthErrors.name">
+                <small class="text-danger" v-for="error in getAuthErrors.name" :key="error">{{error}}</small>
+              </div>
             </div>
             <div class="form-group">
               <input type="text" placeholder="Enter email" v-model="email" class="form-control">
+              <div class="errors" v-if="getAuthErrors.email">
+                <small class="text-danger" v-for="error in getAuthErrors.email" :key="error">{{error}}</small>
+              </div>
             </div>
             <div class="form-group">
               <input type="password" v-model="password" placeholder="Enter password" class="form-control">
+              <div class="errors" v-if="getAuthErrors.password">
+                <small class="text-danger" v-for="error in getAuthErrors.password" :key="error">{{error}}</small>
+              </div>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-sm btn-primary form-control">Sign Up</button>
@@ -25,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters ,mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: "Signup",
@@ -38,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isUserAuth'])
+    ...mapGetters(['isUserAuth', 'getAuthErrors'])
   },
   methods: {
     ...mapActions(['registerUser']),

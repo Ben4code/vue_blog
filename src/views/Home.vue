@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>Home</h1>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis ex est esse nemo et perferendis corporis mollitia temporibus blanditiis exercitationem alias maxime non officiis sint dicta, sunt suscipit obcaecati, quibusdam dolor iure culpa voluptates dolorem. Similique necessitatibus nihil sequi veritatis at impedit corporis cumque quod recusandae earum, tempore saepe id.</p>
+  <div class="jumbotron mt-3">
+    <h1 class="display-4">Vuejs Blog</h1>
+    <p class="lead"
+    >This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4" />
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: "Home"
 };
 </script>
 

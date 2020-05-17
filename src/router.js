@@ -10,14 +10,17 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      name: 'home',
       path: '/',
       component: Home
     },
     {
+      name: 'login',
       path: '/login',
       component: Login
     },
     {
+      name: 'signup',
       path: '/signup',
       component: Signup
     }

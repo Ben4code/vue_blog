@@ -20,10 +20,11 @@
         <li class="nav-item active">
           <router-link class="nav-link" to="/">Home</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="!isUserAuth" class="nav-item">
           <router-link class="nav-link" to="/signup">Sign Up</router-link>
         </li>
-        <li class="nav-item">
+        
+        <li v-if="!isUserAuth" class="nav-item">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
         <li class="nav-item dropdown">
@@ -32,7 +33,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >Hey Ben</a>
+          >Hello {{ getAuthUser.user.name.split(' ')[0] }}</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link class="dropdown-item" to="/login">Logout</router-link>
           </div>
@@ -43,8 +44,13 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  computed: {
+    ...mapGetters(['isUserAuth', 'getAuthUser'])
+  }
 };
 </script>
 

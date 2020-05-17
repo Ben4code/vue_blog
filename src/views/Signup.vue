@@ -24,7 +24,10 @@
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-sm btn-primary form-control">Sign Up</button>
+              <button type="submit" class="btn btn-sm btn-primary form-control">
+                <i class="fas fa-spinner fa-spin text-white" v-if="getAuthLoader"></i>
+                <span class="text-white" v-else>Sign Up</span>
+              </button>
             </div>
           </form>
         </div>
@@ -47,7 +50,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isUserAuth', 'getAuthErrors'])
+    ...mapGetters(['isUserAuth', 'getAuthErrors', 'getAuthLoader'])
   },
   methods: {
     ...mapActions(['registerUser']),

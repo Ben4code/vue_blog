@@ -35,7 +35,7 @@
             aria-expanded="false"
           >Hello {{ getAuthUser.user.name.split(' ')[0] }}</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link class="dropdown-item" to="/login">Logout</router-link>
+            <a  class="dropdown-item" @click="logout">Logout</a>
           </div>
         </li>
       </ul>
@@ -44,12 +44,19 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "Navbar",
   computed: {
     ...mapGetters(['isUserAuth', 'getAuthUser'])
+  },
+  methods: {
+    ...mapActions(['logoutUser']),
+    logout(){
+      this.logoutUser();
+      // this.$router.push('/login')
+    }
   }
 };
 </script>

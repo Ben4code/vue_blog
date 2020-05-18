@@ -4,7 +4,7 @@ import Login from '@/views/Login'
 import Signup from '@/views/Signup'
 import Home from '@/views/Home'
 import Store from '@/store/index'
-
+import Article from '@/views/Article'
 
 Vue.use(Router);
 const router = new Router({
@@ -38,6 +38,11 @@ const router = new Router({
         }
         next();
       }
+    },
+    {
+      name: 'Article',
+      path: '/article/:id',
+      component: Article
     }
   ]
 })

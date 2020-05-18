@@ -7,19 +7,15 @@
       <h4 class="card-title">{{article.title}}</h4>
       <span>{{article.created_at}}</span>
       <p class="card-text" v-html="article.content.substring(0,200)"></p>
-      <button class="btn btn-sm btn-primary form-control">Read More</button>
+      <router-link :to="`/article/${article.id}`" class="btn btn-sm btn-primary form-control">Read More</router-link>
     </div>
   </div>
 </template>
 
 <script>
-// console.log(article)
 export default {
   name: "Articles",
-  props: ["article"],
-  mounted() {
-    console.log(this.article);
-  }
+  props: ["article"]
 };
 </script>
 

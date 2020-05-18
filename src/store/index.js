@@ -15,8 +15,8 @@ const store = new Vuex.Store({
     articles: []
   },
   getters: {
-    getStateArticles: (state) => state.articles,
     isUserAuth: (state) => state.isAuth,
+    getStateArticles: (state) => state.articles,
     getAuthUser: (state) => state.auth,
     getAuthErrors: (state) => state.formErrors,
     getAuthLoader: (state) => state.loading,
@@ -60,7 +60,9 @@ const store = new Vuex.Store({
     async getArticles({commit}){
       try {
         const res = await Axios.get("https://react-blog-api.bahdcasts.com/api/articles");
-        commit('getArticlesMutation', res.data.data.data)
+        const articles = res.data.data.data;
+        commit('getArticlesMutation', articles)
+        localStorage.setItem("articles", JSON.stringify(articles));
       } catch ({response}) {
         console.log(response)
       }

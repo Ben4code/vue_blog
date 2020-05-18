@@ -11,15 +11,18 @@ const store = new Vuex.Store({
     auth: localStorage.getItem("authData") ? JSON.parse(localStorage.getItem("authData")) : {},
     isAuth: localStorage.getItem("authData") ? true : false,
     formErrors: {},
-    loading: false
+    loading: false,
+    articles: []
   },
   getters: {
+    getStateArticles: (state) => state.articles,
     isUserAuth: (state) => state.isAuth,
     getAuthUser: (state) => state.auth,
     getAuthErrors: (state) => state.formErrors,
     getAuthLoader: (state) => state.loading,
   },
   actions: {
+    // Auth Actions
     async registerUser(context, userData) {
       context.state.loading = true;
       try {
@@ -51,6 +54,16 @@ const store = new Vuex.Store({
     },
     logoutUser({commit}){
       commit('clearUserData');
+    },
+
+    // Article actions
+    async getArticles({commit}){
+      try {
+        const res = await Axios.get("https://react-blog-api.bahdcasts.com/api/articles");
+        commit('getArticlesMutation', res.data.data.data)
+      } catch ({response}) {
+        console.log(response)
+      }
     }
   },
   mutations: {
@@ -68,7 +81,10 @@ const store = new Vuex.Store({
       setTimeout(()=>{
         state.formErrors = {};
       } , 3000)
-    }
+    },
+    getArticlesMutation: (state, payload) => {
+      state.articles = payload;
+    } 
   }
 });
 

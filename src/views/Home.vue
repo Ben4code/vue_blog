@@ -12,11 +12,15 @@
       </p>
     </div>
     <hr />
-      <div class="row">
-        <div class="col-md-4 mb-3" v-for="article in getStateArticles" :key="article.id">
-          <Articles :article="article" />
-        </div>
+    <div class="row">
+      <div class="col-md-4 mb-3" v-for="article in getStateArticles" :key="article.id">
+        <Articles :article="article" />
       </div>
+    </div>
+    <div class="d-flex justify-content-between mb-5">
+      <button @click="getArticles(getArticlesMeta.prev_page_url)" :disabled="getArticlesMeta.prev_page_url ===  null" class="btn btn-info">Prev Page</button>
+      <button @click="getArticles(getArticlesMeta.next_page_url)" :disabled="getArticlesMeta.next_page_url ===  null" class="btn btn-info">Next Page</button>
+    </div>
   </div>
 </template>
 
@@ -33,10 +37,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["getStateArticles"])
+    ...mapGetters(["getStateArticles", "getArticlesMeta"])
   },
   mounted() {
-    this.getArticles();
+    this.getArticles("https://react-blog-api.bahdcasts.com/api/articles");
+    console.log("mounted");
   },
   methods: {
     ...mapActions(["getArticles"])

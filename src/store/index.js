@@ -12,11 +12,13 @@ const store = new Vuex.Store({
     isAuth: localStorage.getItem("authData") ? true : false,
     formErrors: {},
     loading: false,
-    articles: []
+    articles: [],
+    meta: {}
   },
   getters: {
     isUserAuth: (state) => state.isAuth,
     getStateArticles: (state) => state.articles,
+    getArticlesMeta: (state) => state.meta,
     getAuthUser: (state) => state.auth,
     getAuthErrors: (state) => state.formErrors,
     getAuthLoader: (state) => state.loading,
@@ -57,17 +59,19 @@ const store = new Vuex.Store({
     },
 
     // Article actions
-    async getArticles({commit}){
+    async getArticles({commit}, url){
       try {
-        const res = await Axios.get("https://react-blog-api.bahdcasts.com/api/articles");
-        const articles = res.data.data.data;
+        const res = await Axios.get(url);
+        const articles = res.data.data;
         commit('getArticlesMutation', articles)
+        // console.log(res)
         localStorage.setItem("articles", JSON.stringify(articles));
       } catch ({response}) {
         console.log(response)
       }
-    }
+    },
   },
+
   mutations: {
     clearUserData: (state) => {
       state.auth = {};
@@ -85,7 +89,8 @@ const store = new Vuex.Store({
       } , 3000)
     },
     getArticlesMutation: (state, payload) => {
-      state.articles = payload;
+      state.articles = payload.data;
+      state.meta = payload;
     } 
   }
 });

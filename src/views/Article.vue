@@ -9,11 +9,7 @@
             <div class="article-content" v-html="article.content"></div>
           </div>
           <div class="comments my-4 px-3">
-            <vue-disqus
-              shortname="vuejs-blog-2"
-              :identifier="article.slug"
-              :url="url"
-            ></vue-disqus>
+            <vue-disqus shortname="vuejs-blog-2" :identifier="article.slug" :url="url"></vue-disqus>
           </div>
         </div>
       </div>

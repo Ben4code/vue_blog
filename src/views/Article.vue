@@ -1,5 +1,5 @@
 <template>
-  <div class=" my-5">
+  <div class="my-5">
     <div class="row">
       <div class="col-md-10 offset-md-1">
         <div class="card">
@@ -7,6 +7,13 @@
           <div class="card-body">
             <h1 class="text-center card-title">{{article.title}}</h1>
             <div class="article-content" v-html="article.content"></div>
+          </div>
+          <div class="comments my-4 px-3">
+            <vue-disqus
+              shortname="vuejs-blog-2"
+              :identifier="article.slug"
+              :url="url"
+            ></vue-disqus>
           </div>
         </div>
       </div>
@@ -21,7 +28,8 @@ export default {
   name: "Article",
   data() {
     return {
-      article: {}
+      article: {},
+      url: window.location.href
     };
   },
   computed: {

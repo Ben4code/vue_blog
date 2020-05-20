@@ -5,7 +5,7 @@
         <h4 class="card-header bg-primary text-white">Create New Article</h4>
         <div class="card-body">
           <form @submit.prevent="submitArticle" class="form">
-            <img :src="imageSrc" class="my-3"/>
+            <img width="400" height="400" :src="imageSrc" class="my-3"/>
             <label >*Select an image thumbnail</label><br>
             <div class="input-group">  
               <input
@@ -83,8 +83,12 @@ export default {
   },
   watch:{
     getNotification(){
-      this.$noty.success("Article created successfully")
-      this.$router.push('/');
+      if(this.getNotification === 200){
+        this.$noty.success("Article created successfully")
+        this.$router.push('/');
+      }else{
+        this.$noty.error("An error occured.")
+      }
     }
   }
 };

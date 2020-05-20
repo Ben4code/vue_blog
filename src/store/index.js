@@ -32,10 +32,7 @@ const store = new Vuex.Store({
     async registerUser(context, userData) {
       context.state.loading = true;
       try {
-        const res = await Axios.post(
-          "https://react-blog-api.bahdcasts.com/api/auth/register",
-          userData
-        );
+        const res = await Axios.post(process.env.VUE_APP_REGISTER_API, userData);
         const { data: authUserData } = res.data;
         localStorage.setItem("authData", JSON.stringify(authUserData));
         context.commit("setUserMutation", authUserData);
@@ -48,10 +45,7 @@ const store = new Vuex.Store({
     async loginUser(context, userData) {
       context.state.loading = true;
       try {
-        const res = await Axios.post(
-          "https://react-blog-api.bahdcasts.com/api/auth/login",
-          userData
-        );
+        const res = await Axios.post(process.env.VUE_APP_LOGIN_API, userData);
         const { data: authUserData } = res.data;
         localStorage.setItem("authData", JSON.stringify(authUserData));
         context.commit("setUserMutation", authUserData);
@@ -85,9 +79,7 @@ const store = new Vuex.Store({
         commit("getCategoriesMutation", JSON.parse(cat_key));
       } else {
         try {
-          const res = await Axios.get(
-            "https://react-blog-api.bahdcasts.com/api/categories"
-          );
+          const res = await Axios.get(process.env.VUE_APP_CATEGORIES_API);
           localStorage.setItem(
             "categories",
             JSON.stringify(res.data.categories)
@@ -104,42 +96,42 @@ const store = new Vuex.Store({
       formData.append("file", formFields.image);
       formData.append("upload_preset", process.env.VUE_APP_CLOUDINARY_PRESET);
       formData.append("api_key", process.env.VUE_APP_CLOUDINARY_API_KEY);
-      // Axios({
-      //   url: process.env.VUE_APP_CLOUDINARY_URL,
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/x-www-form-urlencoded",
-      //   },
-      //   data: formData,
-      // })
-      //   .then((res) => {
-      //     if (res.statusText === "OK") {
-      //       Axios.post(process.env.VUE_APP_ARTICLES_API, {
-      //         title: formFields.title,
-      //         content: formFields.content,
-      //         category_id: formFields.category_id,
-      //         imageUrl: res.data.secure_url
-      //       },
-      //       {
-      //         headers: {
-      //           Authorization: `Bearer ${context.state.auth.token}`
-      //         }
-      //       })
-      //         .then((response) =>{
-      //           console.log(response)
-      //           context.state.loading = false;
-      //           context.state.notification = response.status;   
-      //         })
-      //         .catch(({response}) => {
-      //           console.log(response)
-      //           context.state.loading = false;
-      //         });
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //     context.state.loading = false;
-      //   });
+      Axios({
+        url: process.env.VUE_APP_CLOUDINARY_URL,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: formData,
+      })
+        .then((res) => {
+          if (res.statusText === "OK") {
+            Axios.post(process.env.VUE_APP_ARTICLES_API, {
+              title: formFields.title,
+              content: formFields.content,
+              category_id: formFields.category_id,
+              imageUrl: res.data.secure_url
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${context.state.auth.token}`
+              }
+            })
+              .then((response) =>{
+                console.log(response)
+                context.state.loading = false;
+                context.state.notification = response.status;   
+              })
+              .catch(({response}) => {
+                console.log(response)
+                context.state.loading = false;
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          context.state.loading = false;
+        });
     },
   },
 

@@ -27,6 +27,9 @@
         <li v-if="!isUserAuth" class="nav-item">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
+        <li v-if="isUserAuth" class="nav-item">
+          <router-link class="nav-link" to="/articles/create">Create Article</router-link>
+        </li>
         <li v-if="isUserAuth" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
             role="button"

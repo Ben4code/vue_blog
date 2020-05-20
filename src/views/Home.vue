@@ -11,9 +11,12 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
       </p>
     </div>
-    <hr />
-    <div class="row">
-      <div class="col-md-4 mb-3" v-for="article in getStateArticles" :key="article.id">
+  
+    <div class="mx-auto my-4 text-center" v-if="getAuthLoader">
+      <i class="fas fa-spinner fa-spin fa-5x text-primary"></i>
+    </div>
+    <div v-else class="row">
+      <div  class="col-md-4 mb-3" v-for="article in getStateArticles" :key="article.id">
         <Articles :article="article" />
       </div>
     </div>
@@ -37,11 +40,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["getStateArticles", "getArticlesMeta"])
+    ...mapGetters(["getStateArticles", "getArticlesMeta", "getAuthLoader"])
   },
   mounted() {
     this.getArticles("https://react-blog-api.bahdcasts.com/api/articles");
-    console.log("mounted");
   },
   methods: {
     ...mapActions(["getArticles"])

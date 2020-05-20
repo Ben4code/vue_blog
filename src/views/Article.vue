@@ -34,7 +34,7 @@ export default {
   methods: {
     filterArticle(articles, id) {
       return articles.filter(item => {
-        return item.id === +id;
+        return item.id == id;
       });
     }
   },
@@ -45,11 +45,13 @@ export default {
         this.getStateArticles,
         this.$route.params.id
       )[0];
+      console.log(this.article)
     } else {
       this.article = this.filterArticle(
-        JSON.parse(articleKey),
+        JSON.parse(articleKey).data,
         this.$route.params.id
       )[0];
+      
     }
   }
 };
